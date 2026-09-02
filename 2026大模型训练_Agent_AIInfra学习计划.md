@@ -68,11 +68,11 @@
 
 | 日期 | 当天实践与验收 | CS336 课件/tutorial/作业 | BLLMFS 章节/源码 | 吴师兄资料/代码 | 其他论文/项目 |
 |---|---|---|---|---|---|
-| 2026-08-27 | **BLLMFS 选择性阅读：token→ID→BPE**；概念卡 + 一页流程图 | 暂不进入 A1 实现 | BLL-2 中文书 §2.2–§2.5；repo 主章对应段 | 吴师兄 Tokenization 仅卡住时查 | 不要读 minBPE basic.py |
-| 2026-08-28 | **minBPE 讲解 + 手算 + get_stats/merge**；手算记录 + 两个函数及最小测试 | 只浏览 A1 最终目标，不实现 | BLL-2-BPE 只看算法图，不看完整实现 | WU-3/minbpe 讲解按需 | X-minBPE lecture.md；exercise.md；禁看 basic.py |
-| 2026-08-31 | **独立实现 BasicTokenizer.train**；merges/vocab 可复现 + toy test | 不看 A1 adapter | BLL-2-BPE 只在伪代码卡住时查 | WU-3/minbpe 目录按需 | X-minBPE exercise.md；完成后才可对照 basic.py |
-| 2026-09-01 | **独立实现 encode/decode**；中英数/emoji round-trip tests | 暂不跑 A1 全套测试 | BLL-2 §2.5 按需复查 | WU-3/minbpe 按需 | 完成后对照 X-minBPE base.py/basic.py |
-| 2026-09-02 | **复盘 minBPE 并通过进入 A1 的 readiness gate**；bpe_notes.md + learning_sandbox tests | 只看 A1 §2 目录 | BLL-2-BPE 用于差异核对 | 吴师兄 Tokenization 查漏 | X-minBPE basic.py 仅差异阅读 |
+| 2026-08-27  DONE| **BLLMFS 选择性阅读：token→ID→BPE**；概念卡 + 一页流程图 | 暂不进入 A1 实现 | BLL-2 中文书 §2.2–§2.5；repo 主章对应段 | 吴师兄 Tokenization 仅卡住时查 | 不要读 minBPE basic.py |
+| 2026-08-28 | **minBPE 讲解 + 手算 + get_stats/merge**；手算记录 + 两个函数及最小测试 | 只浏览 A1 最终目标，不实现 | BLL-2-BPE 只看算法图，不看完整实现 | WU-3/minbpe 讲解按需 | minBPE lecture.md；exercise.md；禁看 basic.py |
+| 2026-08-31 | **独立实现 BasicTokenizer.train**；merges/vocab 可复现 + toy test | 不看 A1 adapter | BLL-2-BPE 只在伪代码卡住时查 | WU-3/minbpe 目录按需 | minBPE exercise.md；完成后才可对照 basic.py |
+| 2026-09-01 | **独立实现 encode/decode**；中英数/emoji round-trip tests | 暂不跑 A1 全套测试 | BLL-2 §2.5 按需复查 | WU-3/minbpe 按需 | 完成后对照 minBPE base.py/basic.py |
+| 2026-09-02 | **复盘 minBPE 并通过进入 A1 的 readiness gate**；bpe_notes.md + learning_sandbox tests | 只看 A1 §2 目录 | BLL-2-BPE 用于差异核对 | 吴师兄 Tokenization 查漏 | minBPE basic.py 仅差异阅读 |
 | 2026-08-29 / 2026-08-30 | **滚动缓冲**：补最早欠账；无欠账则提前下一项 | 沿用未完成项 | 沿用未完成项 | 沿用未完成项 | 不新增必读 |
 
 ### 桥接W2｜2026-09-03 至 2026-09-09｜把教学实现迁移为 CS336 A1 规格
@@ -289,7 +289,7 @@
 | WU-8 | 吴师兄 | 预训练课件.ipynb；nanoqwen.zip；DeepSeek/Qwen/Llama 预训练流程 | W3-W5 | P0 | 中文工程补充；压缩包先检查 README/目录。 | 吴师兄资料/第八周：大模型预训练实战 |
 | WU-12 | 吴师兄 | 分布式课件；手撕分布式训练.zip；第11/12周压缩包 | W11/W12 | P0 | DDP/FSDP/ZeRO 中文补充。 | 吴师兄资料/第十二周：手撕分布式训练 |
 | WU-13 | 吴师兄 | 训练推理优化.zip；KV Cache/FlashAttention/PagedAttention/vLLM | W7/W10 | P1 | 只取与 profile/serving 直接相关部分。 | 吴师兄资料/第十三周：推理加速 |
-| X-minBPE | 开源项目 | Karpathy minBPE | 桥接W1/桥接W2 | P0 | BPE 教学沙箱；先 lecture.md/exercise.md，独立实现后才看 basic.py/regex.py。 | https://github.com/karpathy/minbpe |
+| minBPE | 开源项目 | Karpathy minBPE | 桥接W1/桥接W2 | P0 | BPE 教学沙箱；先 lecture.md/exercise.md，独立实现后才看 basic.py/regex.py。 | https://github.com/karpathy/minbpe |
 | X-RoPE | 论文 | RoFormer | W1 | P1 | 只读 RoPE 方法与相对位置解释。 | https://arxiv.org/abs/2104.09864 |
 | X-Llama3 | 论文 | The Llama 3 Herd of Models | W1/W5 | P1 | 只读架构、数据与训练稳定性选段。 | https://arxiv.org/abs/2407.21783 |
 | X-Profiler | 官方教程 | PyTorch Profiler | W7 | P0 | 直接用于 mini-Llama trace。 | https://docs.pytorch.org/tutorials/recipes/recipes/profiler_recipe.html |
