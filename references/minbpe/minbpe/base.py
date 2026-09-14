@@ -11,6 +11,7 @@ import unicodedata
 # a few helper functions useful for both BasicTokenizer and RegexTokenizer
 
 def get_stats(ids, counts=None):
+    #获取所有长度为2的pair对
     """
     Given a list of integers, return a dictionary of counts of consecutive pairs
     Example: [1, 2, 3, 1, 2] -> {(1, 2): 2, (2, 3): 1, (3, 1): 1}
@@ -23,6 +24,7 @@ def get_stats(ids, counts=None):
 
 
 def merge(ids, pair, idx):
+    #用特定编号替代pair对
     """
     In the list of integers (ids), replace all consecutive occurrences
     of pair with the new integer token idx
@@ -42,6 +44,7 @@ def merge(ids, pair, idx):
 
 # first two helper functions...
 def replace_control_characters(s: str) -> str:
+    #批量转换256字符，将控制字符转换为\uXXXX的形式，其他字符正常字符保持不变
     # we don't want to print control characters
     # which distort the output (e.g. \n or much worse)
     # https://stackoverflow.com/questions/4324790/removing-control-characters-from-a-string-in-python/19016117#19016117
@@ -54,6 +57,7 @@ def replace_control_characters(s: str) -> str:
             chars.append(f"\\u{ord(ch):04x}") # escape
     return "".join(chars)
 
+#转换成utf-8格式后转换字符，详细见上
 def render_token(t: bytes) -> str:
     # pretty print a token, escaping control characters
     s = t.decode('utf-8', errors='replace')
@@ -68,10 +72,10 @@ class Tokenizer:
 
     def __init__(self):
         # default: vocab size of 256 (all bytes), no merges, no patterns
-        self.merges = {} # (int, int) -> int
-        self.pattern = "" # str
+        self.merges = {} # (int, int) -> int # (int, int) -> int，记录哪些字节/token 对合并成新 token
+        self.pattern = "" # str # 分词使用的正则表达式模式（用于 RegexTokenizer）
         self.special_tokens = {} # str -> int, e.g. {'<|endoftext|>': 100257}
-        self.vocab = self._build_vocab() # int -> bytes
+        self.vocab = self._build_vocab() # int -> bytes id 到字节串的映射
 
     def train(self, text, vocab_size, verbose=False):
         # Tokenizer can train a vocabulary of size vocab_size from text
@@ -98,14 +102,14 @@ class Tokenizer:
         """
         Saves two files: file_prefix.vocab and file_prefix.model
         This is inspired (but not equivalent to!) sentencepiece's model saving:
-        - model file is the critical one, intended for load()
-        - vocab file is just a pretty printed version for human inspection only
+        - model file is the critical one, intended for load()#保存已经训练好的 tokenizer 规则，之后供程序 load() 加载
+        - vocab file is just a pretty printed version for human inspection only#用于给人看
         """
         # write the model: to be used in load() later
         model_file = file_prefix + ".model"
         with open(model_file, 'w') as f:
             # write the version, pattern and merges, that's all that's needed
-            f.write("minbpe v1\n")
+            f.write("minbpe v1\n")   
             f.write(f"{self.pattern}\n")
             # write the special tokens, first the number of them, then each one
             f.write(f"{len(self.special_tokens)}\n")
