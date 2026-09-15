@@ -1,0 +1,169 @@
+"""
+Contains the base Tokenizer class and a few common helper functions.
+The base class also contains the (common) save/load functionality.
+It would be possible to be a lot more strict about the interface and
+e.g. isolating all regex/pattern parts to the RegexTokenizer, but
+some concessions are made for simplicity.
+"""
+import unicodedata
+
+# -----------------------------------------------------------------------------
+# a few helper functions useful for both BasicTokenizer and RegexTokenizer
+
+def get_stats(ids, counts=None):
+    #获取所有长度为2的pair对
+    """
+    Given a list of integers, return a dictionary of counts of consecutive pairs
+    Example: [1, 2, 3, 1, 2] -> {(1, 2): 2, (2, 3): 1, (3, 1): 1}
+    Optionally allows to update an existing dictionary of counts
+    """
+    counts = {} if counts is None else counts
+    for pair in zip(ids, ids[1:]): # iterate consecutive elements
+        counts[pair] = counts.get(pair, 0) + 1
+    return counts
+
+
+def merge(ids, pair, idx):
+    #用特定编号替代pair对
+    """
+    In the list of integers (ids), replace all consecutive occurrences
+    of pair with the new integer token idx
+    Example: ids=[1, 2, 3, 1, 2], pair=(1, 2), idx=4 -> [4, 3, 4]
+    """
+    newids = []
+    i = 0
+    while i < len(ids):
+        # if not at the very last position AND the pair matches, replace it
+        if ids[i] == pair[0] and i < len(ids) - 1 and ids[i+1] == pair[1]:
+            newids.append(idx)
+            i += 2
+        else:
+            newids.append(ids[i])
+            i += 1
+    return newids
+
+# first two helper functions...
+def replace_control_characters(s: str) -> str:
+    #批量转换256字符，将控制字符转换为\uXXXX的形式，其他字符正常字符保持不变
+    # we don't want to print control characters
+    # which distort the output (e.g. \n or much worse)
+    # https://stackoverflow.com/questions/4324790/removing-control-characters-from-a-string-in-python/19016117#19016117
+    # http://www.unicode.org/reports/tr44/#GC_Values_Table
+    chars = []
+    for ch in s:
+        if unicodedata.category(ch)[0] != "C":
+            chars.append(ch) # this character is ok
+        else:
+            chars.append(f"\\u{ord(ch):04x}") # escape
+    return "".join(chars)
+
+#转换成utf-8格式后转换字符，详细见上
+def render_token(t: bytes) -> str:
+    # pretty print a token, escaping control characters
+    s = t.decode('utf-8', errors='replace')
+    s = replace_control_characters(s)
+    return s
+
+# -----------------------------------------------------------------------------
+# the base Tokenizer class
+
+class Tokenizer:
+    """Base class for Tokenizers"""
+
+    def __init__(self):
+        # default: vocab size of 256 (all bytes), no merges, no patterns
+        self.merges = {} # (int, int) -> int # (int, int) -> int，记录哪些字节/token 对合并成新 token
+        self.pattern = "" # str # 分词使用的正则表达式模式（用于 RegexTokenizer）
+        self.special_tokens = {} # str -> int, e.g. {'<|endoftext|>': 100257}
+        self.vocab = self._build_vocab() # int -> bytes id 到字节串的映射
+
+    def train(self, text, vocab_size, verbose=False):
+        # Tokenizer can train a vocabulary of size vocab_size from text
+        raise NotImplementedError
+
+    def encode(self, text):
+        # Tokenizer can encode a string into a list of integers
+        raise NotImplementedError
+
+    def decode(self, ids):
+        # Tokenizer can decode a list of integers into a string
+        raise NotImplementedError
+
+    def _build_vocab(self):
+        # vocab is simply and deterministically derived from merges
+        vocab = {idx: bytes([idx]) for idx in range(256)}
+        for (p0, p1), idx in self.merges.items(): # (int, int) -> int
+            vocab[idx] = vocab[p0] + vocab[p1]
+        for special, idx in self.special_tokens.items():
+            vocab[idx] = special.encode("utf-8")
+        return vocab
+
+    def save(self, file_prefix):
+        """
+        Saves two files: file_prefix.vocab and file_prefix.model
+        This is inspired (but not equivalent to!) sentencepiece's model saving:
+        - model file is the critical one, intended for load()#用于训练
+        - vocab file is just a pretty printed version for human inspection only#用于给人看
+        """
+        # write the model: to be used in load() later
+        model_file = file_prefix + ".model"   #生成训练目标文件
+        with open(model_file, 'w') as f: 
+            # write the version, pattern and merges, that's all that's needed
+            f.write("minbpe v1\n")   #第一行：目标版本
+            f.write(f"{self.pattern}\n")#第二行：正则表达式模式
+            # write the special tokens, first the number of them, then each one
+            f.write(f"{len(self.special_tokens)}\n")#第三行：特殊token的数量
+            for special, idx in self.special_tokens.items():#第四行开始：每个特殊token及其对应的索引  str int(idx) #special:idx -> key:value
+                f.write(f"{special} {idx}\n")
+            # the merges dict
+            for idx1, idx2 in self.merges:#第五部分开始：每个合并的token对及其对应的索引    #遍历key, key是一个tuple，包含两个元素，分别是idx1和idx2        
+                f.write(f"{idx1} {idx2}\n")
+        # write the vocab: for the human to look at
+        vocab_file = file_prefix + ".vocab"#vocab文件用于人类查看，包含每个token及其对应的索引
+        inverted_merges = {idx: pair for pair, idx in self.merges.items()}# idx:pair -> index:(tuple1:tuple2) 反转merges字典，方便查找每个索引对应的token对
+        with open(vocab_file, "w", encoding="utf-8") as f:
+            for idx, token in self.vocab.items():
+                # note: many tokens may be partial utf-8 sequences
+                # and cannot be decoded into valid strings. Here we're using
+                # errors='replace' to replace them with the replacement char �.
+                # this also means that we couldn't possibly use .vocab in load()
+                # because decoding in this way is a lossy operation!
+                s = render_token(token)
+                # find the children of this token, if any
+                if idx in inverted_merges:
+                    # if this token has children, render it nicely as a merge
+                    idx0, idx1 = inverted_merges[idx]
+                    s0 = render_token(self.vocab[idx0])
+                    s1 = render_token(self.vocab[idx1])
+                    f.write(f"[{s0}][{s1}] -> [{s}] {idx}\n")
+                else:
+                    # otherwise this is leaf token, just print it
+                    # (this should just be the first 256 tokens, the bytes)
+                    f.write(f"[{s}] {idx}\n")
+
+    def load(self, model_file):
+        """Inverse of save() but only for the model file"""
+        assert model_file.endswith(".model")
+        # read the model file
+        merges = {}
+        special_tokens = {}
+        idx = 256
+        with open(model_file, 'r', encoding="utf-8") as f:
+            # read the version
+            version = f.readline().strip()
+            assert version == "minbpe v1"
+            # read the pattern
+            self.pattern = f.readline().strip()
+            # read the special tokens
+            num_special = int(f.readline().strip())
+            for _ in range(num_special):
+                special, special_idx = f.readline().strip().split()
+                special_tokens[special] = int(special_idx)
+            # read the merges
+            for line in f:
+                idx1, idx2 = map(int, line.split())
+                merges[(idx1, idx2)] = idx
+                idx += 1
+        self.merges = merges
+        self.special_tokens = special_tokens
+        self.vocab = self._build_vocab()
