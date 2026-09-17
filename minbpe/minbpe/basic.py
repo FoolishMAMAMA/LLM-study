@@ -72,3 +72,4 @@ class BasicTokenizer(Tokenizer):
             idx = self.merges[pair]
             ids = merge(ids, pair, idx)
         return ids
+

@@ -1,4 +1,9 @@
 from .base import Tokenizer
 from .basic import BasicTokenizer
 from .regex import RegexTokenizer
-from .gpt4 import GPT4Tokenizer
+
+try:
+    from .gpt4 import GPT4Tokenizer
+except ImportError:
+    # tiktoken not installed; GPT4Tokenizer unavailable
+    GPT4Tokenizer = None
