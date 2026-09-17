@@ -32,7 +32,7 @@ class BasicTokenizer(Tokenizer):
             # count up the number of times every consecutive pair appears
             stats = get_stats(ids)
             # find the pair with the highest count
-            pair = max(stats, key=stats.get)
+            pair = max(stats, key=stats.get)#这里这个key不是dictionary的key，而是一个lambda函数，返回值是字典的value，max()函数会返回value最大的那个字典key
             # mint a new token: assign it the next available id
             idx = 256 + i
             # replace all occurrences of pair in ids with idx
