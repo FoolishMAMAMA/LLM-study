@@ -89,7 +89,7 @@ Unicode 是一种将字符映射到整数码点（code point）的文本标准�
 在 Python 中：
 
 - `ord()` 将单个 Unicode 字符转换成对应整数；
-- `chr()` 将整数 Unicode 码点转换成对应字符组成的字符串。
+- `chr()` 将整数 Unicode code point 转换成对应字符组成的字符串。
 
 ### Problem (unicode1)：理解 Unicode（1 分）
 
