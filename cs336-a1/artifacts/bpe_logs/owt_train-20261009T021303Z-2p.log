@@ -1,0 +1,5 @@
+语料：/mnt/e/LLMStudy/LLM-study/cs336-a1/data/owt_train.txt（11368.29 MiB）
+目标词表：32000；特殊 token：['<|endoftext|>']
+预分词进程数上限：2；目标分块：4 MiB
+结果目录：/mnt/e/LLMStudy/LLM-study/cs336-a1/artifacts/bpe/OpenWebText-20261009T021303Z-2p
+开始训练……

@@ -1,0 +1,33 @@
+{
+  "started_at_utc": "2026-10-05T22:21:50.213328+00:00",
+  "input_path": "/mnt/e/LLMStudy/LLM-study/cs336-a1/tests/fixtures/corpus.en",
+  "input_size_bytes": 134042,
+  "requested_vocab_size": 500,
+  "actual_vocab_size": 500,
+  "num_merges": 243,
+  "special_tokens": [
+    "<|endoftext|>"
+  ],
+  "training_seconds": 1.5486380839865888,
+  "process_peak_rss_bytes": 23343104,
+  "memory_scope": "Single-process peak RSS through end of training, including interpreter baseline",
+  "profile_enabled": true,
+  "python_version": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+  "longest_token": {
+    "token_id": 256,
+    "length_bytes": 13,
+    "bytes_repr": "b'<|endoftext|>'",
+    "bytes_hex": "3c7c656e646f66746578747c3e",
+    "text_with_replacement": "<|endoftext|>",
+    "is_special": true
+  },
+  "longest_non_special_token": {
+    "token_id": 428,
+    "length_bytes": 6,
+    "bytes_repr": "b' which'",
+    "bytes_hex": "207768696368",
+    "text_with_replacement": " which",
+    "is_special": false
+  },
+  "serialization_roundtrip_verified": true
+}

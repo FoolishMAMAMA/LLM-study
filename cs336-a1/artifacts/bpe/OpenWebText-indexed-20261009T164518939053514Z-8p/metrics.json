@@ -1,0 +1,41 @@
+{
+  "started_at_utc": "2026-10-09T16:45:19.364578+00:00",
+  "input_path": "/mnt/e/LLMStudy/LLM-study/cs336-a1/data/owt_train.txt",
+  "input_size_bytes": 11920511059,
+  "requested_vocab_size": 32000,
+  "actual_vocab_size": 32000,
+  "num_merges": 31743,
+  "special_tokens": [
+    "<|endoftext|>"
+  ],
+  "num_processes": 8,
+  "chunk_size_bytes": 16777216,
+  "algorithm": "indexed",
+  "checkpoint_path": "/mnt/e/LLMStudy/LLM-study/cs336-a1/artifacts/bpe/OpenWebText-indexed-20261009T164518939053514Z-8p/checkpoint.pkl",
+  "checkpoint_interval_seconds": 300.0,
+  "resumed_from": null,
+  "timing_scope": "current invocation only; includes checkpoint IO; excludes time spent in prior interrupted runs",
+  "training_seconds": 830.7593015470001,
+  "process_peak_rss_bytes": 9779355648,
+  "process_tree_sampled_peak_rss_bytes": 9255993344,
+  "memory_scope": "process_peak_rss_bytes: main-process lifetime peak; process_tree_sampled_peak_rss_bytes: sum of live process RSS sampled every 0.1s during training, shared pages counted per process, short peaks may be missed",
+  "profile_enabled": false,
+  "python_version": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+  "longest_token": {
+    "token_id": 25822,
+    "length_bytes": 64,
+    "bytes_repr": "b'\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82'",
+    "bytes_hex": "c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382",
+    "text_with_replacement": "ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ",
+    "is_special": false
+  },
+  "longest_non_special_token": {
+    "token_id": 25822,
+    "length_bytes": 64,
+    "bytes_repr": "b'\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82\\xc3\\x83\\xc3\\x82'",
+    "bytes_hex": "c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382c383c382",
+    "text_with_replacement": "ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ",
+    "is_special": false
+  },
+  "serialization_roundtrip_verified": true
+}

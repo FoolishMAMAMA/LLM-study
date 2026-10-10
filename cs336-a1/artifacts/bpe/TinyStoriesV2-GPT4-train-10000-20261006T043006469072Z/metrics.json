@@ -1,0 +1,33 @@
+{
+  "started_at_utc": "2026-10-06T04:30:06.469072+00:00",
+  "input_path": "/mnt/e/LLMStudy/LLM-study/cs336-a1/data/TinyStoriesV2-GPT4-train.txt",
+  "input_size_bytes": 2227753162,
+  "requested_vocab_size": 10000,
+  "actual_vocab_size": 10000,
+  "num_merges": 9743,
+  "special_tokens": [
+    "<|endoftext|>"
+  ],
+  "training_seconds": 478.12645205200533,
+  "process_peak_rss_bytes": 11400167424,
+  "memory_scope": "Single-process peak RSS through end of training, including interpreter baseline",
+  "profile_enabled": false,
+  "python_version": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+  "longest_token": {
+    "token_id": 7160,
+    "length_bytes": 15,
+    "bytes_repr": "b' accomplishment'",
+    "bytes_hex": "206163636f6d706c6973686d656e74",
+    "text_with_replacement": " accomplishment",
+    "is_special": false
+  },
+  "longest_non_special_token": {
+    "token_id": 7160,
+    "length_bytes": 15,
+    "bytes_repr": "b' accomplishment'",
+    "bytes_hex": "206163636f6d706c6973686d656e74",
+    "text_with_replacement": " accomplishment",
+    "is_special": false
+  },
+  "serialization_roundtrip_verified": true
+}

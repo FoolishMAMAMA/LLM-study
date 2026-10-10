@@ -1,0 +1,41 @@
+{
+  "started_at_utc": "2026-10-09T16:44:40.623766+00:00",
+  "input_path": "/mnt/e/LLMStudy/LLM-study/cs336-a1/data/TinyStoriesV2-GPT4-valid.txt",
+  "input_size_bytes": 22502601,
+  "requested_vocab_size": 10000,
+  "actual_vocab_size": 10000,
+  "num_merges": 9743,
+  "special_tokens": [
+    "<|endoftext|>"
+  ],
+  "num_processes": 1,
+  "chunk_size_bytes": 8388608,
+  "algorithm": "indexed",
+  "checkpoint_path": "/mnt/e/LLMStudy/LLM-study/cs336-a1/artifacts/bpe/TinyStoriesV2-GPT4-valid-10000-20261009T164440623766Z/checkpoint.pkl",
+  "checkpoint_interval_seconds": 300,
+  "resumed_from": "/mnt/e/LLMStudy/LLM-study/cs336-a1/artifacts/bpe/TinyStoriesV2-GPT4-valid-10000-20261009T163907351861Z/checkpoint.pkl",
+  "timing_scope": "current invocation only; includes checkpoint IO; excludes time spent in prior interrupted runs",
+  "training_seconds": 0.11202028000002429,
+  "process_peak_rss_bytes": 33161216,
+  "process_tree_sampled_peak_rss_bytes": 33161216,
+  "memory_scope": "process_peak_rss_bytes: main-process lifetime peak; process_tree_sampled_peak_rss_bytes: sum of live process RSS sampled every 0.1s during training, shared pages counted per process, short peaks may be missed",
+  "profile_enabled": false,
+  "python_version": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+  "longest_token": {
+    "token_id": 7427,
+    "length_bytes": 15,
+    "bytes_repr": "b' accomplishment'",
+    "bytes_hex": "206163636f6d706c6973686d656e74",
+    "text_with_replacement": " accomplishment",
+    "is_special": false
+  },
+  "longest_non_special_token": {
+    "token_id": 7427,
+    "length_bytes": 15,
+    "bytes_repr": "b' accomplishment'",
+    "bytes_hex": "206163636f6d706c6973686d656e74",
+    "text_with_replacement": " accomplishment",
+    "is_special": false
+  },
+  "serialization_roundtrip_verified": true
+}

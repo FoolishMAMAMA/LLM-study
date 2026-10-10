@@ -1,0 +1,38 @@
+         2108463 function calls (2108260 primitive calls) in 1.622 seconds
+
+   Ordered by: cumulative time
+   List reduced from 519 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    12/10    0.001    0.000    1.615    0.162 threading.py:637(wait)
+     19/2    0.103    0.005    0.924    0.462 threading.py:323(wait)
+        1    0.010    0.010    0.767    0.767 bpe_pretokenization.py:80(build_word_counts)
+        1    0.000    0.000    0.734    0.734 _base.py:646(__exit__)
+        1    0.000    0.000    0.729    0.729 process.py:864(shutdown)
+      2/1    0.000    0.000    0.728    0.728 threading.py:1115(join)
+      2/1    0.000    0.000    0.728    0.728 threading.py:1153(_wait_for_tstate_lock)
+      2/1    0.000    0.000    0.728    0.728 threading.py:1016(_bootstrap)
+      2/1    0.000    0.000    0.728    0.728 threading.py:1056(_bootstrap_inner)
+        1    0.000    0.000    0.728    0.728 process.py:340(run)
+        1    0.000    0.000    0.728    0.728 process.py:574(join_executor_internals)
+        1    0.000    0.000    0.728    0.728 process.py:578(_join_executor_internals)
+        9    0.000    0.000    0.710    0.079 util.py:208(__call__)
+        1    0.000    0.000    0.710    0.710 queues.py:147(join_thread)
+       10    0.000    0.000    0.707    0.071 process.py:415(wait_result_broken_or_wakeup)
+       10    0.000    0.000    0.635    0.064 bpe_experiment.py:41(_sample)
+       33    0.001    0.000    0.494    0.015 __init__.py:775(create_time)
+       43    0.095    0.002    0.433    0.010 bpe_train.py:97(merge_word_counts)
+       76    0.000    0.000    0.371    0.005 _common.py:367(wrapper)
+       10    0.000    0.000    0.280    0.028 __init__.py:951(children)
+      212    0.033    0.000    0.265    0.001 _common.py:681(open_binary)
+   349418    0.159    0.000    0.233    0.000 bpe_train.py:61(merge_pair)
+  152/109    0.000    0.000    0.180    0.002 _pslinux.py:1589(wrapper)
+       76    0.002    0.000    0.146    0.002 _pslinux.py:1848(create_time)
+   791178    0.120    0.000    0.120    0.000 {method 'get' of 'dict' objects}
+    25009    0.071    0.000    0.104    0.000 bpe_train.py:79(count_pairs)
+       43    0.000    0.000    0.100    0.002 __init__.py:313(__init__)
+       43    0.000    0.000    0.100    0.002 __init__.py:316(_init)
+       43    0.000    0.000    0.100    0.002 __init__.py:363(_get_ident)
+       43    0.000    0.000    0.100    0.002 _pslinux.py:1672(_parse_stat_file)
+
+

@@ -1,0 +1,33 @@
+{
+  "started_at_utc": "2026-10-05T22:22:12.355304+00:00",
+  "input_path": "/mnt/e/LLMStudy/LLM-study/cs336-a1/toy_pair_count.txt",
+  "input_size_bytes": 36,
+  "requested_vocab_size": 300,
+  "actual_vocab_size": 259,
+  "num_merges": 2,
+  "special_tokens": [
+    "<|endoftext|>"
+  ],
+  "training_seconds": 0.00829977699322626,
+  "process_peak_rss_bytes": 19918848,
+  "memory_scope": "Single-process peak RSS through end of training, including interpreter baseline",
+  "profile_enabled": false,
+  "python_version": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+  "longest_token": {
+    "token_id": 256,
+    "length_bytes": 13,
+    "bytes_repr": "b'<|endoftext|>'",
+    "bytes_hex": "3c7c656e646f66746578747c3e",
+    "text_with_replacement": "<|endoftext|>",
+    "is_special": true
+  },
+  "longest_non_special_token": {
+    "token_id": 258,
+    "length_bytes": 4,
+    "bytes_repr": "b'abab'",
+    "bytes_hex": "61626162",
+    "text_with_replacement": "abab",
+    "is_special": false
+  },
+  "serialization_roundtrip_verified": true
+}

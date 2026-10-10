@@ -1,0 +1,36 @@
+{
+  "started_at_utc": "2026-10-06T05:33:35.529063+00:00",
+  "input_path": "/mnt/e/LLMStudy/LLM-study/cs336-a1/tests/fixtures/tinystories_sample_5M.txt",
+  "input_size_bytes": 5279869,
+  "requested_vocab_size": 300,
+  "actual_vocab_size": 300,
+  "num_merges": 43,
+  "special_tokens": [
+    "<|endoftext|>"
+  ],
+  "num_processes": 2,
+  "chunk_size_bytes": 1048576,
+  "training_seconds": 1.5395677360065747,
+  "process_peak_rss_bytes": 26284032,
+  "process_tree_sampled_peak_rss_bytes": 92635136,
+  "memory_scope": "process_peak_rss_bytes: main-process lifetime peak; process_tree_sampled_peak_rss_bytes: sum of live process RSS sampled every 0.1s during training, shared pages counted per process, short peaks may be missed",
+  "profile_enabled": true,
+  "python_version": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+  "longest_token": {
+    "token_id": 256,
+    "length_bytes": 13,
+    "bytes_repr": "b'<|endoftext|>'",
+    "bytes_hex": "3c7c656e646f66746578747c3e",
+    "text_with_replacement": "<|endoftext|>",
+    "is_special": true
+  },
+  "longest_non_special_token": {
+    "token_id": 263,
+    "length_bytes": 4,
+    "bytes_repr": "b' the'",
+    "bytes_hex": "20746865",
+    "text_with_replacement": " the",
+    "is_special": false
+  },
+  "serialization_roundtrip_verified": true
+}
