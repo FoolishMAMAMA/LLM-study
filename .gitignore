@@ -20,3 +20,8 @@ __pycache__/
 *.vocab
 *.ckpt
 wandb/
+
+
+/data/
+/.venv/
+/artifacts/**/checkpoint.pkl*
