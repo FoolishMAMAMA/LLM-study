@@ -1,0 +1,80 @@
+{
+  "sampling": "各文件前10篇非空正文；TinyStories valid / OWT train",
+  "compression": [
+    {
+      "corpus": "tiny",
+      "model": "tiny",
+      "bytes": 10778,
+      "tokens": 2687,
+      "bytes_per_token": 4.011164867882397
+    },
+    {
+      "corpus": "owt",
+      "model": "owt",
+      "bytes": 31487,
+      "tokens": 6712,
+      "bytes_per_token": 4.691150178784267
+    },
+    {
+      "corpus": "owt",
+      "model": "tiny",
+      "bytes": 31487,
+      "tokens": 9873,
+      "bytes_per_token": 3.1892028765319558
+    }
+  ],
+  "throughput": [
+    {
+      "model": "tiny",
+      "cache_size": 0,
+      "bytes": 1048085,
+      "tokens": 255154,
+      "trial_seconds": [
+        1.697879615999998,
+        1.638323057000001,
+        1.6632989380000005
+      ],
+      "bytes_per_second": 630124.2525052341,
+      "pile_hours": 363.68488556907766
+    },
+    {
+      "model": "tiny",
+      "cache_size": 32768,
+      "bytes": 1048085,
+      "tokens": 255154,
+      "trial_seconds": [
+        0.1945874219999979,
+        0.18263659599999826,
+        0.17955653499999968
+      ],
+      "bytes_per_second": 5738636.302660886,
+      "pile_hours": 39.93399382365578
+    },
+    {
+      "model": "owt",
+      "cache_size": 0,
+      "bytes": 989949,
+      "tokens": 221380,
+      "trial_seconds": [
+        1.995990471999999,
+        1.9926670249999994,
+        1.944526463999999
+      ],
+      "bytes_per_second": 496795.9963105227,
+      "pile_hours": 461.289278433367
+    },
+    {
+      "model": "owt",
+      "cache_size": 32768,
+      "bytes": 989949,
+      "tokens": 221380,
+      "trial_seconds": [
+        0.5401786279999996,
+        0.5231575050000004,
+        0.5239387539999996
+      ],
+      "bytes_per_second": 1889436.4893649397,
+      "pile_hours": 121.28836717009318
+    }
+  ]
+}

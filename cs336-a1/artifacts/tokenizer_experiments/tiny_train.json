@@ -1,0 +1,19 @@
+{
+  "signature": {
+    "input": "/mnt/e/LLMStudy/LLM-study/cs336-a1/data/TinyStoriesV2-GPT4-train.txt",
+    "size": 2227753162,
+    "mtime_ns": 1791260937912405300,
+    "model": {
+      "vocab.pkl": "d6de1b7354de17d9559ad5a2602fb510bc99a7c11234bb94e0b9b8d861c58c6c",
+      "merges.pkl": "9dc83e4c602bd8d5029c577d432e15013ff03bc8b2ac8fe658f912e6082b416f"
+    },
+    "tokenizer_sha256": "03fb1e73227a8b6418630660cbafd78e60d377fa4b317fe56fea72c97af13b32",
+    "format": "raw little-endian uint16",
+    "version": 1
+  },
+  "input_offset": 2227753162,
+  "output_bytes": 1082458694,
+  "tokens": 541229347,
+  "elapsed_seconds": 73.632540777,
+  "complete": true
+}

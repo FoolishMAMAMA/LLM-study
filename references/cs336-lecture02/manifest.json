@@ -1,0 +1,22 @@
+{
+  "source_url": "https://cs336.stanford.edu/lectures/var/traces/lecture_02_recording.json",
+  "retrieved": "2026-10-21",
+  "trace_sha256": "90a7c53791b2317d945a4126520f518131131ae11e2f9019c863f5ec9d26504e",
+  "steps": 992,
+  "images": {
+    "images/bf16.png": null,
+    "images/compute-memory.png": null,
+    "images/cpu-gpu.png": null,
+    "images/deep-network.png": null,
+    "images/fp16.png": null,
+    "images/fp32.png": null,
+    "var/files/image-42d32b9c87939fe9a4b0a268d6d02ea7-https_jax-ml_github_io_scaling-book_assets_img_roofline-improved-1400_webp": null,
+    "var/files/image-75df5937a21eff96383d1c7c2ff05132-https_pbs_twimg_com_media_HE1P1HmaUAAjLXF_format_jpg_name_medium": null,
+    "var/files/image-df6d7649a3bdb77cfdc38092d8387a99-https_docs_nvidia_com_deeplearning_transformer-engine_user-guide__images_fp8_formats_png": null
+  },
+  "recording_cells": 149,
+  "practice_cells": 25,
+  "recording_code_cells": 71,
+  "conversion": "source-structured executable v2",
+  "validation": "all 71 code cells executed on CPU with no errors; GPU branches not tested"
+}

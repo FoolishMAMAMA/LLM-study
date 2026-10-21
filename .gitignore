@@ -25,3 +25,4 @@ wandb/
 /cs336-a1/data/
 /cs336-a1/.venv/
 /cs336-a1/artifacts/**/checkpoint.pkl*
+/cs336-a1/artifacts/tokenizer_experiments/*.bin

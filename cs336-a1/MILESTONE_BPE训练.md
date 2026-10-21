@@ -301,3 +301,32 @@ bash scripts/run_owt_bpe.sh artifacts/bpe/对应结果目录/checkpoint.pkl
 - 本次 CPU 训练实测约 13 分 51 秒、主进程峰值约 9.11 GiB；资源记录满足 handout 的 12 小时、100 GB 预算。进程树指标来自定时采样，可能漏掉短暂峰值，不能直接等同于真实进程树峰值。
 - 上一次旧算法的 OpenWebText 运行断电中断，没有最终结果，不能据此报告精确的新旧算法加速倍数。两次优化产物互相一致，也不等于已与完整语料的旧算法结果完成对照；此前官方测试、随机语料对照和 TinyStories 验证集基准对照已通过。
 - **完整 OpenWebText BPE 实验与独立重跑已完成。**下一步整理 TinyStories/OpenWebText 的最长 token 与词表差异的书面回答，并推进 handout §2.6 Tokenizer 编码、解码及相关测试。
+
+## 2026-10-21：§2.6–2.7 实现与实验验收，准备第三章
+
+- 用户完成 `Tokenizer` 的初始化、片段 BPE、特殊 token 分段、`encode`、`decode`、`encode_iterable` 和 `from_files`。特殊 token 保留列表以确定新增 ID 顺序，另用集合判断成员。
+- 测试适配器已连接；用户在集合改动后完整运行 `tests/test_tokenizer.py`：**24 passed, 1 xpassed in 22.02s**。XPASS 是预计失败的内存测试通过，不表示已证明真实内存占用小于 1 MB。
+- §2.7(a)(b)：各文件前10篇非空正文，非随机抽样；TinyStories 使用 valid，OWT 使用 train。自身 tokenizer 的压缩率分别为 **4.0112、4.6912 bytes/token**；TinyStories tokenizer 编码同一批 OWT 为 **3.1892**，token 数多 **47.1%**。领域和词表大小均有影响。
+- §2.7(c)：约1 MiB完整文档前缀、单进程纯 encode、3次中位数。原版 TinyStories/OWT 为 **0.630/0.497 MB/s**；32768条片段缓存版为 **5.739/1.889 MB/s**。Pile 只按题目825 GB估算，不下载或实际编码；计时不包括读写、加载及解码校验。
+- §2.7(d)：四份语料全部编码完成。缺失的 OWT valid 已从课程 README 指定地址下载。开发集使用4个进程，训练集使用8个进程；缓存只在实验包装中启用，核心 Tokenizer 未改动。
+
+| 数据集 | token 数 | 编码秒数 |
+| --- | ---: | ---: |
+| TinyStories valid | 5,465,883 | 2.6 |
+| TinyStories train | 541,229,347 | 73.6 |
+| OWT valid | 66,401,098 | 33.3 |
+| OWT train | 2,727,120,452 | 1406.2 |
+
+- OWT train 完成检查点修改时间：**2026-10-21 01:15:54（北京时间）**，约23分26秒。01:21验收：四份JSON均为 `complete=true`，输入偏移等于原始文件大小，`.bin`大小与记录一致且等于token数×2。
+- 输出在 `artifacts/tokenizer_experiments/`，格式为小端原始uint16，可用 `np.memmap(path, dtype="<u2", mode="r")` 按需读取；保留原换行和文档分隔token。
+- 每批解码还原校验通过；两个开发集的首批输出与原版单进程Tokenizer逐ID对照通过；分块及模拟中断恢复测试 **2 passed**。这些校验不等于另跑了一遍全量参考编码。
+- 实验报告：[REPORT.md](artifacts/tokenizer_experiments/REPORT.md)。后台任务已完成，不再持续刷新；未来再次运行脚本仍会重写报告，个人笔记请另存。
+- 主体学习脚本是 `tokenizer_experiment.py`；`tokenizer_pipeline.py` 的多进程、断点及自动报告属于辅助工程，当前不要求逐行掌握。
+
+### 下一步学习安排
+
+- 用户先补基础；回来从本地PDF **§3.1、§3.2** 开始：模型总览、`[B,T] → [B,T,D] → [B,T,V]`、矩阵运算、广播与批量计算。
+- 按需补官方Lecture 2的PyTorch基础与Lecture 3架构材料；无需看完整套视频再开始动手。
+- 第一个实现目标为 **§3.3 Linear、Embedding**，之后RMSNorm/SwiGLU、RoPE、Attention和模型组装；不再继续扩展tokenizer优化支线。
+- 整体目标为2026年12月学完整门CS336，而非仅完成A1；进度计划应依据实际投入校准，不能承诺全部作业必然按期完成。
+- 第二章已完成上述实现和实验；更早§2.1–2.5所有书面题是否齐全未在本次逐题复核，不把实验完成等同于全部提交材料无遗漏。
