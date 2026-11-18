@@ -26,3 +26,13 @@ wandb/
 /cs336-a1/.venv/
 /cs336-a1/artifacts/**/checkpoint.pkl*
 /cs336-a1/artifacts/tokenizer_experiments/*.bin
+
+# 本地辅助工具和手动备份，不作为项目源码提交
+/tmp/
+/local-backups/
+
+# 可重新生成的实验二进制和原始运行日志；保留 JSON 指标、报告和文本分析
+/cs336-a1/artifacts/**/*.bin
+/cs336-a1/artifacts/**/*.pkl
+/cs336-a1/artifacts/**/*.prof
+/cs336-a1/artifacts/bpe_logs/

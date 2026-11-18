@@ -29,7 +29,16 @@ def run_linear(
         Float[Tensor, "... d_out"]: The transformed output of your linear module.
     """
 
-    raise NotImplementedError
+    from cs336_basics.linear import Linear
+
+    layer = Linear(
+        in_features=d_in,
+        out_features=d_out,
+        device=weights.device,
+        dtype=weights.dtype,
+    )
+    layer.load_state_dict({"weight": weights})
+    return layer(in_features)
 
 
 def run_embedding(
@@ -51,7 +60,16 @@ def run_embedding(
         Float[Tensor, "... d_model"]: Batch of embeddings returned by your Embedding layer.
     """
 
-    raise NotImplementedError
+    from cs336_basics.embedding import Embedding
+
+    layer = Embedding(
+        num_embeddings=vocab_size,
+        embedding_dim=d_model,
+        device=weights.device,
+        dtype=weights.dtype,
+    )
+    layer.load_state_dict({"W": weights})
+    return layer(token_ids)
 
 
 def run_swiglu(
@@ -83,7 +101,11 @@ def run_swiglu(
     # swiglu.w1.weight.data = w1_weight
     # swiglu.w2.weight.data = w2_weight
     # swiglu.w3.weight.data = w3_weight
-    raise NotImplementedError
+    from cs336_basics.swiglu import SwiGLU
+
+    layer = SwiGLU(d_model, d_ff, device=w1_weight.device, dtype=w1_weight.dtype)
+    layer.load_state_dict({"W1.weight": w1_weight, "W2.weight": w2_weight, "W3.weight": w3_weight})
+    return layer(in_features)
 
 
 def run_scaled_dot_product_attention(
@@ -200,7 +222,21 @@ def run_rope(
     Returns:
         Float[Tensor, " ... sequence_length d_k"]: Tensor with RoPEd input.
     """
-    raise NotImplementedError
+    # 导入自己实现的类；这个适配器负责把测试输入交给它。
+    from cs336_basics.rope import RotaryPositionalEmbedding
+
+    # 创建模块会执行 __init__，预先准备 cos、sin 表。
+    # .device 是输入张量的设备属性，让缓存表与输入处于同一设备。
+    layer = RotaryPositionalEmbedding(
+        theta=theta,
+        d_k=d_k,
+        max_seq_len=max_seq_len,
+        device=in_query_or_key.device,
+    )
+
+    # nn.Module 的调用机制会执行 layer.forward(...)。
+    # RoPE 没有可学习权重，因此这里不需要 load_state_dict。
+    return layer(in_query_or_key, token_positions)
 
 
 def run_transformer_block(
@@ -378,7 +414,11 @@ def run_rmsnorm(
         Float[Tensor,"... d_model"]: Tensor of with the same shape as `in_features` with the output of running
         RMSNorm of the `in_features`.
     """
-    raise NotImplementedError
+    from cs336_basics.rmsnorm import RMSNorm
+
+    layer = RMSNorm(d_model=d_model, eps=eps, device=weights.device, dtype=weights.dtype)
+    layer.load_state_dict({"g": weights})
+    return layer(in_features)
 
 
 def run_silu(in_features: Float[Tensor, " ..."]) -> Float[Tensor, " ..."]:
@@ -392,7 +432,9 @@ def run_silu(in_features: Float[Tensor, " ..."]) -> Float[Tensor, " ..."]:
         Float[Tensor,"..."]: of with the same shape as `in_features` with the output of applying
         SiLU to each element.
     """
-    raise NotImplementedError
+    from cs336_basics.swiglu import SiLU
+
+    return SiLU(in_features)
 
 
 def run_get_batch(
@@ -431,8 +473,9 @@ def run_softmax(in_features: Float[Tensor, " ..."], dim: int) -> Float[Tensor, "
         Float[Tensor, "..."]: Tensor of with the same shape as `in_features` with the output of
         softmax normalizing the specified `dim`.
     """
-    raise NotImplementedError
+    from cs336_basics.softmax import softmax
 
+    return softmax(in_features,dim)
 
 def run_cross_entropy(
     inputs: Float[Tensor, " batch_size vocab_size"], targets: Int[Tensor, " batch_size"]

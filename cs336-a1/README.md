@@ -1,5 +1,7 @@
 # CS336 Spring 2025 Assignment 1: Basics
 
+本机 WSL、GPU 和测试指令见 [WSL 环境使用说明](README_WSL环境.md)。
+
 For a full description of the assignment, see the assignment handout at
 [cs336_assignment1_basics.pdf](./cs336_assignment1_basics.pdf)
 

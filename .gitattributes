@@ -1,0 +1,2 @@
+# PDF 按二进制文件处理，避免在 Git diff 中显示压缩数据的逐行变化。
+*.pdf binary

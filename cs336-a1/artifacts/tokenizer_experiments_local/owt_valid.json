@@ -1,0 +1,19 @@
+{
+  "signature": {
+    "input": "/mnt/e/LLM_tokenization/cs336-a1/data/owt_valid.txt",
+    "size": 289998753,
+    "mtime_ns": 1792591489127874500,
+    "model": {
+      "vocab.pkl": "b702921d92120ea6a80fa6bb7c024cf4632c2cb69d212a4a0fa94ac2f8d82b08",
+      "merges.pkl": "1cd5b1d2e4953e3bd8bcc39e052b34a5dc9bff5ad86a1847fb0f27f9a0f1a844"
+    },
+    "tokenizer_sha256": "03fb1e73227a8b6418630660cbafd78e60d377fa4b317fe56fea72c97af13b32",
+    "format": "raw little-endian uint16",
+    "version": 1
+  },
+  "input_offset": 289998753,
+  "output_bytes": 132802196,
+  "tokens": 66401098,
+  "elapsed_seconds": 9.737586694000129,
+  "complete": true
+}

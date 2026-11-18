@@ -1,17 +1,17 @@
 """调用已有 BPE 实现，保存训练产物并记录实验指标。"""
 
 import argparse
-import cProfile
+import cProfile#导入性能分析工具，用来统计函数调用次数和耗时。 后面开启 --profile 才会使用它进行分析。导入工具不等于开启分析。
 import json
-import pickle
-import pstats
+import pickle#导入 Python 对象序列化工具。
+import pstats#导入性能统计结果的整理工具
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from threading import Event, Thread
-from time import perf_counter
+from threading import Event, Thread#主线程进行训练，另一个线程定期采样内存；训练结束后，通过 Event 通知采样线程停止。
+from time import perf_counter#导入一个适合测量耗时的函数。
 
-import psutil
+import psutil#这里用它取得进程的内存使用量，以及当前进程的子进程列表。
 
 from cs336_basics.bpe_train import train_bpe
 
@@ -33,10 +33,12 @@ class ProcessTreeMemory:
     """每 0.1 秒采样活跃进程树 RSS 总和；共享页可能重复计入。"""
 
     def __init__(self):
-        self.root = psutil.Process()
+        self.root = psutil.Process()#不指定进程 ID 时，psutil.Process() 表示当前 Python 进程。
         self.peak = 0
-        self.stop = Event()
-        self.thread = Thread(target=self._run, daemon=True)
+        self.stop = Event()#Event 是用于线程间通信的对象。你可以先把它理解为一个开关
+        #self.stop 是一个 Event 对象。这个名字本身不会停止任何东西，要配合后面的 .wait() 和 .set() 使用。
+        self.thread = Thread(target=self._run, daemon=True)#这里创建一个线程对象，保存到 self.thread。
+        #指定线程启动后，要执行当前对象的 _run 方法。
 
     def _sample(self):
         total = 0
@@ -62,7 +64,7 @@ class ProcessTreeMemory:
         self._sample()
 
 
-def token_info(vocab: dict[int, bytes], special_tokens: list[str], *, exclude_specials: bool = False) -> dict:
+def token_info(vocab: dict[int, bytes], special_tokens: list[str], *, exclude_specials: bool = False) -> dict:#*后面的参数只能用参数名传入
     special_bytes = {token.encode("utf-8") for token in special_tokens}
     candidates = (
         (token_id, token)
